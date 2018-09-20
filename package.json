@@ -1,0 +1,19 @@
+{
+  "name": "shortcutspreview",
+  "version": "1.0.0",
+  "description": "A Reddit/Discord bot for showing the details of Shortcuts when linked by their iCloud URL.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haykam821/ShortcutsPreview.git"
+  },
+  "author": "haykam821",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/haykam821/ShortcutsPreview/issues"
+  },
+  "homepage": "https://github.com/haykam821/ShortcutsPreview#readme"
+}
