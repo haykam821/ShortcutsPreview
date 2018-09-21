@@ -11,3 +11,7 @@ if (process.env.SCP_REDDIT_ID) {
 		userAgent: `ShortcutsPreview v${version}`,
 	});
 }
+
+if (process.env.SCP_DISCORD_TOKEN) {
+	require("./services/discord.js")(process.env.SCP_DISCORD_TOKEN);
+}
