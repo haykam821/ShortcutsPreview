@@ -10,7 +10,7 @@ After starting the script, you can use it in Reddit and Discord, depending on if
 
 Allow the Reddit bot to detect posts by inviting the bot to the moderation team. It only uses the `posts` permission since it only needs it to sticky its preview comment, but it will work with no moderator permissions. The hosted version is [u/ShortcutsPreview](https://www.reddit.com/user/ShortcutsPreview/).
 
-Link posts marked with a flair containing `shortcut` (case insensitive) and an iCloud URL will be previewed, in the form of a possibly-stickied comment.
+Link posts with a iCloud URL linking to a shortcut will be previewed, in the form of a possibly-stickied comment.
 
 ### Discord
 
