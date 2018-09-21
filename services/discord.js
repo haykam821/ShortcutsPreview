@@ -13,11 +13,12 @@ module.exports = token => {
 		
 		if (id) {
 			utils.getShortcutDetails(id).then(shortcut => {
-				msg.channel.send("", {
-					embed: {
-						title: "Shortcut: " + shortcut.name,
-					},
-				});
+				const embed = new djs.RichEmbed();
+				
+				embed.title = "Shortcut: " + shortcut.name;
+				embed.url = shortcut.link;
+				
+				msg.channel.send("", embed);
 			});
 		}
 	});
