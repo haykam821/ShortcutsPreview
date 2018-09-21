@@ -20,4 +20,6 @@ The Discord bot needs three permissions to work:
 * Send Messages
 * Send Links
 
+You can invite the hosted version with the necessary permissions through [this link](https://discordapp.com/api/oauth2/authorize?client_id=492797846265921548&permissions=19456&scope=bot).
+
 The first iCloud URL found in a message is previewed with an embed message.
