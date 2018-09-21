@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/haykam821/ShortcutsPreview/issues"
   },
-  "homepage": "https://github.com/haykam821/ShortcutsPreview#readme"
+  "homepage": "https://github.com/haykam821/ShortcutsPreview#readme",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "got": "^9.2.2",
+    "markdown-escape": "^1.0.2",
+    "snoostorm": "0.0.5",
+    "snoowrap": "^1.15.2"
+  }
 }
