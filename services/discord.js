@@ -18,6 +18,8 @@ module.exports = token => {
 				embed.title = "Shortcut: " + shortcut.name;
 				embed.url = shortcut.link;
 				
+				embed.setImage(shortcut.imageURL);
+				
 				msg.channel.send("", embed);
 			});
 		}
