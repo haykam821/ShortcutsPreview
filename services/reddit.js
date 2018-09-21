@@ -11,9 +11,11 @@ const escape = require("markdown-escape");
 
 const { version, homepage } = require("./../package.json");
 
-function format(name, install) {
+function format(name, url) {
 	return [
-		`## Shortcut: [${escape(name)}](${escape(install)})`,
+		`## Shortcut: ${escape(name)}`,
+		"",
+		`Click [here](${escape(url)}) to view and get this shortcut.`,
 		"",
 		"---",
 		"",
@@ -36,10 +38,7 @@ module.exports = credentials => {
 				got(baseURL + path[1], {
 					json: true,
 				}).then(response => {
-					const name = response.body.fields.name.value;
-					const install = `workflow://import-workflow/?name=${name}&url=${encodeURIComponent(encodeURI(response.body.fields.shortcut.value.downloadURL))}`;
-
-					post.reply(format(name, install)).then(reply => {
+					post.reply(format(response.body.fields.name.value, post.url)).then(reply => {
 						reply.distinguish({
 							status: true,
 							sticky: true,
