@@ -22,7 +22,7 @@ module.exports = token => {
 					embed.setURL(shortcut.link);
 
 					// Get a normal hex color from the icon color for the embed color
-					const iconColor = shortcut.icon.color.toString(16).splice(0, 6);
+					const iconColor = shortcut.icon.color.toString(16).slice(0, 6);
 					embed.setColor(iconColor);
 
 					// Make the footer
