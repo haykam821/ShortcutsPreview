@@ -11,7 +11,7 @@ function format(shortcut) {
 	return [
 		`## Shortcut: ${escape(shortcut.name)}`,
 		"",
-		`Click [here](${escape(shortcut.link)}) to view and get this shortcut.`,
+		`Click [here](${escape(shortcut.getLink())}) to view and get this shortcut.`,
 		"",
 		"---",
 		"",

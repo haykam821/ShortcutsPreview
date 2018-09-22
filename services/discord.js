@@ -19,7 +19,7 @@ module.exports = token => {
 					const embed = new djs.RichEmbed();
 					
 					embed.setTitle("Shortcut: " + shortcut.name);
-					embed.setURL(shortcut.link);
+					embed.setURL(shortcut.getLink());
 
 					// Get a normal hex color from the icon color for the embed color
 					const iconColor = shortcut.icon.color.toString(16).slice(0, 6);
