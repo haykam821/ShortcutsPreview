@@ -2,6 +2,30 @@
 
 A multiplatform bot for showing the details of Shortcuts when linked by their iCloud URL.
 
+## Setup
+
+You need to make a `config.json` in the root. Each service (such as `reddit` or `discord`) will have its own object for settings applying to that service, along with a `global` object that applies to all services. For example:
+
+```json
+{
+    "global": {
+        "enabled": true
+    },
+    "reddit": {
+        // enabled is also true here
+        "credentials": {
+            "clientId": "h4yk4m821",
+            "clientSecret": "It's a secret to everybody."
+        }
+    },
+    "discord": {
+        "token": "insertyourtokenhere"
+    }
+}
+```
+
+If you set `enabled` to `false` for a service, you can not use it.
+
 ## Usage
 
 After starting the script, you can use it in Reddit and Discord, depending on if the service was properly set up. There are also hosted versions available.
