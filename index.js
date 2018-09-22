@@ -1,4 +1,6 @@
-require('dotenv').config();
+if (require('dotenv').config()) {
+	process.stderr.write("Using environment variables for configuration is deprecated. Please use config.json instead.\n");
+}
 
 const config = Object.assign(require("./config.json"), {
 	global: {
