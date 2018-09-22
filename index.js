@@ -1,17 +1,28 @@
 require('dotenv').config();
 
-const version = require("./package.json").version;
+const config = Object.assign(require("./config.json"), {
+	global: {
+		enabled: true,
+	},
+	reddit: {
+		credentials: {
+			clientId: process.env.SCP_REDDIT_ID,
+			clientSecret: process.env.SCP_REDDIT_SECRET,
+			username: process.env.SCP_REDDIT_USERNAME,
+			password: process.env.SCP_REDDIT_PASSWORD,
+		},
+	},
+	discord: {
+		token: process.env.SCP_DISCORD_TOKEN,
+	},
+});
 
-if (process.env.SCP_REDDIT_ID) {
-	require("./services/reddit.js")({
-		clientId: process.env.SCP_REDDIT_ID,
-		clientSecret: process.env.SCP_REDDIT_SECRET,
-		username: process.env.SCP_REDDIT_USERNAME,
-		password: process.env.SCP_REDDIT_PASSWORD,
-		userAgent: `ShortcutsPreview v${version}`,
-	});
+function service(name) {
+	const serviceConfig = Object.assign(config.global, config[name]);
+	if (serviceConfig.enabled) {
+		return require(`./services/${name}.js`)(serviceConfig);
+	}
 }
 
-if (process.env.SCP_DISCORD_TOKEN) {
-	require("./services/discord.js")(process.env.SCP_DISCORD_TOKEN);
-}
+service("reddit");
+service("discord");

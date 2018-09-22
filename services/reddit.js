@@ -19,8 +19,11 @@ function format(shortcut) {
 	].join("\n");
 }
 
-module.exports = credentials => {
-	const client = new snoostorm(new snoowrap(credentials));
+module.exports = config => {
+	const client = new snoostorm(new snoowrap(Object.assign(config.credentials, {
+		userAgent: `ShortcutsPreview v${version}`,
+	})));
+
 	const stream = client.SubmissionStream({
 		"subreddit": "mod",
 	});

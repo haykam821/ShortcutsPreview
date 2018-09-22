@@ -4,7 +4,7 @@ const utils = require("shortcuts.js");
 
 const { version } = require("./../package.json");
 
-module.exports = token => {
+module.exports = config => {
 	const client = new djs.Client();
 
 	client.on("message", msg => {
@@ -35,5 +35,5 @@ module.exports = token => {
 		}
 	});
 
-	client.login(token);
+	client.login(config.token);
 }
