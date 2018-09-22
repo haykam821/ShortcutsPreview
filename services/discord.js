@@ -1,6 +1,6 @@
 const djs = require("discord.js");
 
-const utils = require("./../utils.js");
+const utils = require("shortcuts.js");
 
 const { version } = require("./../package.json");
 
@@ -11,8 +11,8 @@ module.exports = token => {
 		if (msg.author.id !== client.user.id) {
 			const words = msg.content.split(" ");
 			
-			const url = words.find(utils.shortcutFromURL);
-			const id = utils.shortcutFromURL(url);
+			const url = words.find(utils.idFromURL);
+			const id = utils.idFromURL(url);
 			
 			if (id) {
 				utils.getShortcutDetails(id).then(shortcut => {
@@ -23,7 +23,7 @@ module.exports = token => {
 
 					// Make the footer
 					embed.setTimestamp(shortcut.creationDate);
-					embed.setFooter(`ShortcutsPreview v${version}`)
+					embed.setFooter(`ShortcutsPreview v${version}`);
 					
 					msg.channel.send("", embed);
 				});

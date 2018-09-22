@@ -1,7 +1,7 @@
 const snoowrap = require("snoowrap");
 const snoostorm = require("snoostorm");
 
-const utils = require("./../utils.js");
+const utils = require("shortcuts.js");
 
 const escape = require("markdown-escape");
 
@@ -27,7 +27,7 @@ module.exports = credentials => {
 
 	stream.on("submission", post => {
 		if (!post.is_self) {
-			const id = utils.shortcutFromURL(post.url);
+			const id = utils.idFromURL(post.url);
 			if (id) {
 				utils.getShortcutDetails(id).then(shortcut => {
 					post.reply(format(shortcut)).then(reply => {
