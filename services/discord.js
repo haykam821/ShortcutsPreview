@@ -2,6 +2,8 @@ const djs = require("discord.js");
 
 const utils = require("./../utils.js");
 
+const { version } = require("./../package.json");
+
 module.exports = token => {
 	const client = new djs.Client();
 
@@ -18,6 +20,10 @@ module.exports = token => {
 					
 					embed.setTitle("Shortcut: " + shortcut.name);
 					embed.setURL(shortcut.link);
+
+					// Make the footer
+					embed.setTimestamp(shortcut.creationDate);
+					embed.setFooter(`ShortcutsPreview v${version}`)
 					
 					msg.channel.send("", embed);
 				});
