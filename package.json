@@ -1,6 +1,6 @@
 {
   "name": "shortcutspreview",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A Reddit/Discord bot for showing the details of Shortcuts when linked by their iCloud URL.",
   "main": "index.js",
   "scripts": {
