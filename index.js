@@ -2,7 +2,14 @@ if (require('dotenv').config()) {
 	process.stderr.write("Using environment variables for configuration is deprecated. Please use config.json instead.\n");
 }
 
-const config = Object.assign(require("./config.json"), {
+try {
+	var configJSON = require("./config.json");
+} catch (error) {
+	var configJSON = {};
+	process.stderr.write("The configuration for ShortcutsPreview is missing.\n");
+}
+
+const config = Object.assign(configJSON, {
 	global: {
 		enabled: true,
 	},
