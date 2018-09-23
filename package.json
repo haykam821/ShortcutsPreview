@@ -21,7 +21,7 @@
     "dotenv": "^6.0.0",
     "markdown-escape": "^1.0.2",
     "shortcuts.js": "^2.0.0",
-    "snoostream": "^1.0.1",
+    "snoostorm": "0.0.5",
     "snoowrap": "^1.15.2"
   }
 }

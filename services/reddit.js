@@ -1,5 +1,5 @@
 const snoowrap = require("snoowrap");
-const snoostream = require("snoostream");
+const snoostorm = require("snoostorm");
 
 const utils = require("shortcuts.js");
 
@@ -20,12 +20,15 @@ function format(shortcut) {
 }
 
 module.exports = config => {
-	const client = new snoostream(new snoowrap(Object.assign(config.credentials, {
+	const client = new snoostorm(new snoowrap(Object.assign(config.credentials, {
 		userAgent: `ShortcutsPreview v${version}`,
 	})));
-	const stream = client.submissionStream("mod");
 
-	stream.on("post", post => {
+	const stream = client.SubmissionStream({
+		"subreddit": "mod",
+	});
+
+	stream.on("submission", post => {
 		if (!post.is_self) {
 			const id = utils.idFromURL(post.url);
 			if (id) {
