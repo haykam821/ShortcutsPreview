@@ -1,6 +1,6 @@
 {
   "name": "shortcutspreview",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "A multiplatform bot for showing the details of Shortcuts when linked by their iCloud URL.",
   "main": "index.js",
   "scripts": {
