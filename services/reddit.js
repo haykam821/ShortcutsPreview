@@ -13,6 +13,10 @@ function format(shortcut) {
 	// Name of shortcut
 	msg.push(`## Shortcut: ${escape(shortcut.name)}`);
 	
+	if (shortcut.longDescription) {
+		msg.push(">" + escape(shortcut.longDescription));
+	}
+	
 	// Link to the landing page
 	msg.push(`Click [here](${escape(shortcut.getLink())}) to view and get this shortcut.`);
 	
