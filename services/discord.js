@@ -20,6 +20,15 @@ module.exports = config => {
 					
 					embed.setTitle("Shortcut: " + shortcut.name);
 					embed.setURL(shortcut.getLink());
+					
+					const description = [];
+					
+					// Add bolded long description, if there is one
+					if (shortcut.longDescription) {
+						description.push("**" + shortcut.longDescription + "**");
+					}
+					
+					embed.setDescription(description.join("\n\n"));
 
 					// Get a normal hex color from the icon color for the embed color
 					const iconColor = shortcut.icon.color.toString(16).slice(0, 6);
