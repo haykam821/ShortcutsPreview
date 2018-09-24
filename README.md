@@ -12,7 +12,6 @@ You need to make a `config.json` in the root. Each service (such as `reddit` or 
         "enabled": true
     },
     "reddit": {
-        // enabled is also true here
         "credentials": {
             "clientId": "h4yk4m821",
             "clientSecret": "It's a secret to everybody."
@@ -24,7 +23,7 @@ You need to make a `config.json` in the root. Each service (such as `reddit` or 
 }
 ```
 
-If you set `enabled` to `false` for a service, you can not use it.
+Since `global.enabled` is `true`, `reddit.enabled` and `discord.enabled` are also `true`. If you set `enabled` to `false` for a service, you can not use it.
 
 ## Usage
 
