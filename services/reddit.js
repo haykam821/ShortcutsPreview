@@ -27,6 +27,15 @@ function format(shortcut) {
 	return msg.join("\n\n");
 }
 
+function reply(post, ...shortcuts) {
+	return post.reply(format(...shortcuts)).then(reply => {
+		reply.distinguish({
+			status: true,
+			sticky: true,
+		});
+	});
+}
+
 module.exports = config => {
 	const client = new snoostorm(new snoowrap(Object.assign(config.credentials, {
 		userAgent: `ShortcutsPreview v${version}`,
@@ -41,12 +50,7 @@ module.exports = config => {
 			const id = utils.idFromURL(post.url);
 			if (id) {
 				utils.getShortcutDetails(id).then(shortcut => {
-					post.reply(format(shortcut)).then(reply => {
-						reply.distinguish({
-							status: true,
-							sticky: true,
-						});
-					});
+					reply(post, shortcut); 
 				});
 			}
 		}
