@@ -41,10 +41,10 @@ module.exports = config => {
 		userAgent: `ShortcutsPreview v${version}`,
 	})));
 
+	// Watching submissions
 	const stream = client.SubmissionStream({
 		"subreddit": "mod",
 	});
-
 	stream.on("submission", post => {
 		if (!post.is_self) {
 			const id = utils.idFromURL(post.url);
@@ -53,6 +53,23 @@ module.exports = config => {
 					reply(post, shortcut); 
 				});
 			}
+		}
+	});
+	
+	// Watching comments
+	const stream = client.CommentStream({
+		"subreddit": "mod",
+	});
+	stream.on("comment", comment => {
+		const words = comment.content.split(" ");
+
+		const url = words.find(utils.idFromURL);
+		const id = utils.idFromURL(url);
+
+		if (id) {
+			utils.getShortcutDetails(id).then(shortcut => {
+				reply(post, shortcut); 
+			});
 		}
 	});
 };
