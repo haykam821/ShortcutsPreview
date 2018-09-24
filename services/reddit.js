@@ -8,15 +8,19 @@ const escape = require("markdown-escape");
 const { version, homepage } = require("./../package.json");
 
 function format(shortcut) {
-	return [
-		`## Shortcut: ${escape(shortcut.name)}`,
-		"",
-		`Click [here](${escape(shortcut.getLink())}) to view and get this shortcut.`,
-		"",
-		"---",
-		"",
-		`ShortcutsPreview v${version} • [Creator](https://www.reddit.com/user/haykam821) • [Source code](${homepage})`,
-	].join("\n");
+	const msg = [];
+	
+	// Name of shortcut
+	msg.push(`## Shortcut: ${escape(shortcut.name)}`);
+	
+	// Link to the landing page
+	msg.push(`Click [here](${escape(shortcut.getLink())}) to view and get this shortcut.`);
+	
+	// Footer with meta info
+	msg.push("---");
+	msg.push(`ShortcutsPreview v${version} • [Creator](https://www.reddit.com/user/haykam821) • [Source code](${homepage})`);
+	
+	return msg.join("\n\n");
 }
 
 module.exports = config => {
