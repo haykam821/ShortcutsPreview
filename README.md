@@ -4,7 +4,7 @@ A multiplatform bot for showing the details of Shortcuts when linked by their iC
 
 ## Setup
 
-You need to make a `config.json` in the root. Each service (such as `reddit` or `discord`) will have its own object for settings applying to that service, along with a `global` object that applies to all services. For example:
+You need to make a `config.json` in the root. Each service (such as `reddit` or `discord`) will have its own object for settings applying to that service, along with `global`: For example:
 
 ```json
 {
@@ -23,7 +23,11 @@ You need to make a `config.json` in the root. Each service (such as `reddit` or 
 }
 ```
 
-Since `global.enabled` is `true`, `reddit.enabled` and `discord.enabled` are also `true`. If you set `enabled` to `false` for a service, you can not use it.
+### Global
+
+Global configuration applies to all services unless that service overrides it.
+
+Since `global.enabled` is `true`, `reddit.enabled` and `discord.enabled` are also `true`. If you set `discord.enabled` to `false` as well, every service except Discord will start.
 
 ## Usage
 
