@@ -23,5 +23,12 @@
 		"shortcuts.js": "^2.0.0",
 		"snoostorm": "0.0.5",
 		"snoowrap": "^1.15.2"
-	}
+	},
+	"keywords": [
+		"shortcuts",
+		"apple",
+		"bot",
+		"discord",
+		"reddit"
+	]
 }
