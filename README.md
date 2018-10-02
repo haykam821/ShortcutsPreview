@@ -35,7 +35,7 @@ To authenticate the Reddit service, use `reddit.credentials`. This is passed to 
 
 ### Discord
 
-Fill in the `discord.token` property with your bot's token, as obtained from the [developer dashboard]().   
+Fill in the `discord.token` property with your bot's token, as obtained from the [developer dashboard](http://discordapp.com/developers/applications/me).   
 
 ## Usage
 
