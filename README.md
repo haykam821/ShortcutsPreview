@@ -29,6 +29,14 @@ Global configuration applies to all services unless that service overrides it.
 
 Since `global.enabled` is `true`, `reddit.enabled` and `discord.enabled` are also `true`. If you set `discord.enabled` to `false` as well, every service except Discord will start.
 
+### Reddit
+
+To authenticate the Reddit service, use `reddit.credentials`. This is passed to Snoowrap, so use [an object as described by its documentation](https://not-an-aardvark.github.io/snoowrap/snoowrap.html#snoowrap__anchor). The properties of the object are `clientId`, `clientSecret`, `username`, `password`, `refreshToken`, and `accessToken`. Overriding the `userAgent` property is not allowed, since Reddit uses that to blacklist broken versions of bots.
+
+### Discord
+
+Fill in the `discord.token` property with your bot's token, as obtained from the [developer dashboard]().   
+
 ## Usage
 
 After starting the script, you can use it in Reddit and Discord, depending on if the service was properly set up. There are also hosted versions available.
