@@ -23,6 +23,7 @@ const config = Object.assign(configJSON, {
 	},
 	discord: {
 		token: process.env.SCP_DISCORD_TOKEN,
+		showModificationDate: false,
 	},
 });
 
