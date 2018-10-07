@@ -22,7 +22,7 @@ function format(shortcut) {
 	
 	// Footer with meta info
 	msg.push("---");
-	msg.push(`ShortcutsPreview v${version} • [Creator](https://www.reddit.com/user/haykam821) • [Source code](${homepage})`);
+	msg.push(`ShortcutsPreview v${version} • [Test me!](https://www.reddit.com/r/ShortcutsPreview) • [Creator](https://www.reddit.com/user/haykam821) • [Source code](${homepage})`);
 	
 	return msg.join("\n\n");
 }
