@@ -1,12 +1,15 @@
+const debug = require("debug");
+const config = debug("shortcutspreview:config");
+
 if (require('dotenv').config()) {
-	process.stderr.write("Using environment variables for configuration is deprecated. Please use config.json instead.\n");
+	config("Using environment variables for configuration is deprecated. Please use config.json instead.");
 }
 
 try {
 	var configJSON = require("./config.json");
 } catch (error) {
 	var configJSON = {};
-	process.stderr.write("The configuration for ShortcutsPreview is missing.\n");
+	config("The configuration for ShortcutsPreview is missing.");
 }
 
 const config = Object.assign(configJSON, {
@@ -27,7 +30,10 @@ const config = Object.assign(configJSON, {
 });
 
 function service(name) {
-	const serviceConfig = Object.assign(config.global, config[name]);
+	const serviceConfig = Object.assign(config.global, config[name], {
+		// Expose a debugger specific to the service
+		log: debug(`shortcutspreview:services:${name}`),
+	});
 	if (serviceConfig.enabled) {
 		return require(`./services/${name}.js`)(serviceConfig);
 	}
