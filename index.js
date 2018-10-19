@@ -5,11 +5,16 @@ if (require('dotenv').config()) {
 	config("Using environment variables for configuration is deprecated. Please use config.json instead.");
 }
 
+const loadErrors = {
+	MODULE_NOT_FOUND: "The configuration for ShortcutsPreview is missing.",
+	generic: "The configuration could not be loaded.",
+};
+
 try {
 	var configJSON = require("./config.json");
 } catch (error) {
 	var configJSON = {};
-	config("The configuration for ShortcutsPreview is missing.");
+	config(loadErrors[error.code] || loadErrors.generic);
 }
 
 const config = Object.assign(configJSON, {
