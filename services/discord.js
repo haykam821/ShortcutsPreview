@@ -38,11 +38,19 @@ module.exports = config => {
 					embed.setTimestamp(shortcut.creationDate);
 					embed.setFooter(`ShortcutsPreview v${version}`);
 					
-					msg.channel.send("", embed);
+					msg.channel.send("", embed).then(() => {
+						config.log("Sent a preview for the '%s' shortcut.", shortcut.name);
+					}).catch(() => {
+						config.log("Couldn't send a preview for the '%s' shortcut.", shortcut.name);
+					});
 				});
 			}
 		}
 	});
 
-	client.login(config.token);
+	client.login(config.token).then(() => {
+		config.log("Connected to Discord.");
+	}).catch(() => {
+		config.log("Couldn't connect to Discord.");
+	}); 
 }
