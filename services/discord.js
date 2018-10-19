@@ -1,6 +1,7 @@
 const djs = require("discord.js");
 
 const utils = require("shortcuts.js");
+const getShortcutDetails = require("./../logging-gsd.js");
 
 const { version } = require("./../package.json");
 
@@ -15,7 +16,7 @@ module.exports = config => {
 			const id = utils.idFromURL(url);
 			
 			if (id) {
-				utils.getShortcutDetails(id).then(shortcut => {
+				getShortcutDetails(config.log, id).then(shortcut => {
 					const embed = new djs.RichEmbed();
 					
 					embed.setTitle("Shortcut: " + shortcut.name);
