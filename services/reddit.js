@@ -2,6 +2,7 @@ const snoowrap = require("snoowrap");
 const snoostorm = require("snoostorm");
 
 const utils = require("shortcuts.js");
+const getShortcutDetails = require("./../logging-gsd.js");
 
 const escape = require("markdown-escape");
 
@@ -40,7 +41,7 @@ module.exports = config => {
 		if (!post.is_self) {
 			const id = utils.idFromURL(post.url);
 			if (id) {
-				utils.getShortcutDetails(id).then(shortcut => {
+				getShortcutDetails(config.log, id).then(shortcut => {
 					post.reply(format(shortcut)).then(reply => {
 						reply.distinguish({
 							status: true,
