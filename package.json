@@ -18,7 +18,6 @@
 	"homepage": "https://github.com/haykam821/ShortcutsPreview#readme",
 	"dependencies": {
 		"discord.js": "^11.4.2",
-		"dotenv": "^6.0.0",
 		"markdown-escape": "^1.0.2",
 		"shortcuts.js": "^3.0.0",
 		"snoostorm": "0.0.5",

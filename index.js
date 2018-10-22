@@ -1,7 +1,3 @@
-if (require('dotenv').config()) {
-	process.stderr.write("Using environment variables for configuration is deprecated. Please use config.json instead.\n");
-}
-
 try {
 	var configJSON = require("./config.json");
 } catch (error) {
@@ -15,14 +11,14 @@ const config = Object.assign({
 	},
 	reddit: {
 		credentials: {
-			clientId: process.env.SCP_REDDIT_ID,
-			clientSecret: process.env.SCP_REDDIT_SECRET,
-			username: process.env.SCP_REDDIT_USERNAME,
-			password: process.env.SCP_REDDIT_PASSWORD,
+			clientId: "",
+			clientSecret: "",
+			username: "",
+			password: "",
 		},
 	},
 	discord: {
-		token: process.env.SCP_DISCORD_TOKEN,
+		token: "",
 		previewShortcutIcon: true,
 	},
 }, configJSON);
