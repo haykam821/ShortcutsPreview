@@ -20,7 +20,7 @@
 		"discord.js": "^11.4.2",
 		"dotenv": "^6.0.0",
 		"markdown-escape": "^1.0.2",
-		"shortcuts.js": "^2.0.0",
+		"shortcuts.js": "^3.0.0",
 		"snoostorm": "0.0.5",
 		"snoowrap": "^1.15.2"
 	},

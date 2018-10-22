@@ -9,7 +9,7 @@ try {
 	process.stderr.write("The configuration for ShortcutsPreview is missing.\n");
 }
 
-const config = Object.assign(configJSON, {
+const config = Object.assign({
 	global: {
 		enabled: true,
 	},
@@ -23,8 +23,9 @@ const config = Object.assign(configJSON, {
 	},
 	discord: {
 		token: process.env.SCP_DISCORD_TOKEN,
+		previewShortcutIcon: true,
 	},
-});
+}, configJSON);
 
 function service(name) {
 	const serviceConfig = Object.assign(config.global, config[name]);
