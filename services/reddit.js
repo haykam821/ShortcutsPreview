@@ -27,28 +27,49 @@ function format(shortcut) {
 	return msg.join("\n\n");
 }
 
+function reply(post, ...shortcuts) {
+	return post.reply(format(...shortcuts)).then(reply => {
+		reply.distinguish({
+			status: true,
+			sticky: true,
+		});
+	});
+}
+
 module.exports = config => {
 	const client = new snoostorm(new snoowrap(Object.assign(config.credentials, {
 		userAgent: `ShortcutsPreview v${version}`,
 	})));
 
+	// Watching submissions
 	const stream = client.SubmissionStream({
 		"subreddit": "mod",
 	});
-
 	stream.on("submission", post => {
 		if (!post.is_self) {
 			const id = utils.idFromURL(post.url);
 			if (id) {
 				utils.getShortcutDetails(id).then(shortcut => {
-					post.reply(format(shortcut)).then(reply => {
-						reply.distinguish({
-							status: true,
-							sticky: true,
-						});
-					});
+					reply(post, shortcut); 
 				});
 			}
+		}
+	});
+	
+	// Watching comments
+	const stream = client.CommentStream({
+		"subreddit": "mod",
+	});
+	stream.on("comment", comment => {
+		const words = comment.content.split(" ");
+
+		const url = words.find(utils.idFromURL);
+		const id = utils.idFromURL(url);
+
+		if (id) {
+			utils.getShortcutDetails(id).then(shortcut => {
+				reply(post, shortcut); 
+			});
 		}
 	});
 };
