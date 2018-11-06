@@ -32,8 +32,9 @@ module.exports = config => {
 		userAgent: `ShortcutsPreview v${version}`,
 	})));
 
+	const sub = Array.isArray(config.subreddits) ? config.subreddits.join("+") : config.subreddits;
 	const stream = client.SubmissionStream({
-		"subreddit": "mod",
+		"subreddit": sub,
 	});
 
 	stream.on("submission", post => {

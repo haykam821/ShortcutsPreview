@@ -20,6 +20,7 @@ const config = Object.assign(configJSON, {
 			username: process.env.SCP_REDDIT_USERNAME,
 			password: process.env.SCP_REDDIT_PASSWORD,
 		},
+		subreddits: "all",
 	},
 	discord: {
 		token: process.env.SCP_DISCORD_TOKEN,
