@@ -18,7 +18,7 @@ function format(shortcut) {
 	}
 	
 	// Link to the landing page
-	msg.push(`Click [here](${escape(shortcut.getLink())}) to view and get this shortcut.`);
+	msg.push(`⬇️ [Download](${escape(shortcut.getLink())})`);
 	
 	// Footer with meta info
 	msg.push("---");
