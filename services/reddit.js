@@ -11,13 +11,14 @@ function format(shortcut) {
 	const msg = [];
 	
 	// Name of shortcut
-	msg.push(`## Shortcut: ${escape(shortcut.name)}`);
+	msg.push(`#### Shortcut: ${escape(shortcut.name)}`);
 	
 	if (shortcut.longDescription) {
 		msg.push(">" + escape(shortcut.longDescription));
 	}
 	
 	// Link to the landing page
+	msg.push(`⬇️ [Download](${escape(shortcut.getLink())})`);
 	msg.push(`⬇️ [Download](${escape(shortcut.getLink())})`);
 	
 	// Footer with meta info
