@@ -34,10 +34,13 @@ module.exports = config => {
 					const iconColor = shortcut.icon.color.toString(16).slice(0, 6);
 					embed.setColor(iconColor);
 
-					// Make the footer
-					embed.setTimestamp(shortcut.creationDate);
+					// Make the footer either the creation or modification date based on the configuration
+					embed.setTimestamp(config.showModificationDate ? shortcut.modificationDate : shortcut.creationDate);
+					
+					// Add the bot's version to the footer
 					embed.setFooter(`ShortcutsPreview v${version}`);
 					
+					// Now we can send it
 					msg.channel.send("", embed);
 				});
 			}
