@@ -1,7 +1,9 @@
 const djs = require("discord.js");
 
 const utils = require("shortcuts.js");
-const getShortcutDetails = require("./../logging-gsd.js");
+const getShortcutDetails = require("../logging-gsd.js");
+
+const escape = require("markdown-escape");
 
 const { version } = require("./../package.json");
 
@@ -28,6 +30,8 @@ module.exports = config => {
 					if (shortcut.longDescription) {
 						description.push("**" + shortcut.longDescription + "**");
 					}
+
+					description.push(`\\🔎 [Preview](${escape("https://preview.scpl.dev/?shortcut=" + shortcut.id)})`);
 					
 					embed.setDescription(description.join("\n\n"));
 
