@@ -23,6 +23,9 @@
 		"snoostorm": "0.0.5",
 		"snoowrap": "^1.15.2"
 	},
+	"devDependencies": {
+		"debug": "^4.1.0"
+	},
 	"keywords": [
 		"shortcuts",
 		"apple",

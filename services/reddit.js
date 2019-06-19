@@ -2,6 +2,7 @@ const snoowrap = require("snoowrap");
 const snoostorm = require("snoostorm");
 
 const utils = require("shortcuts.js");
+const getShortcutDetails = require("./../logging-gsd.js");
 
 const escape = require("markdown-escape");
 
@@ -11,14 +12,15 @@ function format(shortcut) {
 	const msg = [];
 	
 	// Name of shortcut
-	msg.push(`## Shortcut: ${escape(shortcut.name)}`);
+	msg.push(`#### Shortcut: ${escape(shortcut.name)}`);
 	
 	if (shortcut.longDescription) {
 		msg.push(">" + escape(shortcut.longDescription));
 	}
 	
-	// Link to the landing page
-	msg.push(`Click [here](${escape(shortcut.getLink())}) to view and get this shortcut.`);
+	// Links to shortcut download and preview
+	msg.push(`⬇️ [Download](${escape(shortcut.getLink())})`);
+	msg.push(`🔎 [Preview](${escape("https://preview.scpl.dev/?shortcut=" + shortcut.id)})`);
 	
 	// Footer with meta info
 	msg.push("---");
@@ -29,23 +31,31 @@ function format(shortcut) {
 
 module.exports = config => {
 	const client = new snoostorm(new snoowrap(Object.assign(config.credentials, {
-		userAgent: `ShortcutsPreview v${version}`,
+		userAgent: "ShortcutsPreview v" + version,
 	})));
 
+	const sub = Array.isArray(config.subreddits) ? config.subreddits.join("+") : config.subreddits;
 	const stream = client.SubmissionStream({
-		"subreddit": "mod",
+		"subreddit": sub,
 	});
 
 	stream.on("submission", post => {
 		if (!post.is_self) {
 			const id = utils.idFromURL(post.url);
 			if (id) {
-				utils.getShortcutDetails(id).then(shortcut => {
+				getShortcutDetails(config.log, id).then(shortcut => {
 					post.reply(format(shortcut)).then(reply => {
+						config.log("Sent a preview for the '%s' shortcut.", shortcut.name);
 						reply.distinguish({
 							status: true,
 							sticky: true,
+						}).then(() => {
+							config.log("Pinned a preview for the '%s' shortcut.", shortcut.name);
+						}).catch(() => {
+							config.log("Couldn't pin a preview for the '%s' shortcut.", shortcut.name);
 						});
+					}).catch(() => {
+						config.log("Couldn't send a preview for the '%s' shortcut.", shortcut.name);
 					});
 				});
 			}
