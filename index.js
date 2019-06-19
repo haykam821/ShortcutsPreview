@@ -1,10 +1,6 @@
 const debug = require("debug");
 const configLog = debug("shortcutspreview:config");
 
-if (require('dotenv').config()) {
-	configLog("Using environment variables for configuration is deprecated. Please use config.json instead.");
-}
-
 const loadErrors = {
 	MODULE_NOT_FOUND: "The configuration for ShortcutsPreview is missing.",
 	generic: "The configuration could not be loaded.",
@@ -23,15 +19,16 @@ const config = Object.assign({
 	},
 	reddit: {
 		credentials: {
-			clientId: process.env.SCP_REDDIT_ID,
-			clientSecret: process.env.SCP_REDDIT_SECRET,
-			username: process.env.SCP_REDDIT_USERNAME,
-			password: process.env.SCP_REDDIT_PASSWORD,
+			clientId: "",
+			clientSecret: "",
+			username: "",
+			password: "",
 		},
 		subreddits: "all",
 	},
 	discord: {
-		token: process.env.SCP_DISCORD_TOKEN,
+		token: "",
+		previewShortcutIcon: true,
 	},
 }, configJSON);
 
