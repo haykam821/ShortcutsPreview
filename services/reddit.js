@@ -19,8 +19,8 @@ function format(shortcut) {
 	}
 	
 	// Links to shortcut download and preview
-	msg.push(`⬇️ [Download](${escape(shortcut.getLink())})`);
-	msg.push(`🔎 [Preview](${escape("https://preview.scpl.dev/?shortcut=" + shortcut.id)})`);
+	msg.push(`* ⬇️ [Download](${escape(shortcut.getLink())})`);
+	msg.push(`* 🔎 [Preview](${escape("https://preview.scpl.dev/?shortcut=" + shortcut.id)})`);
 	
 	// Footer with meta info
 	msg.push("---");
