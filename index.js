@@ -16,6 +16,7 @@ try {
 const config = Object.assign({
 	global: {
 		enabled: true,
+		betaRange: ">=3.0.0",
 	},
 	reddit: {
 		credentials: {

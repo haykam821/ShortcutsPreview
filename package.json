@@ -19,7 +19,8 @@
 	"dependencies": {
 		"discord.js": "^11.4.2",
 		"markdown-escape": "^1.0.2",
-		"shortcuts.js": "^3.0.0",
+		"semver": "^6.1.1",
+		"shortcuts.js": "^3.0.1",
 		"snoostorm": "0.0.5",
 		"snoowrap": "^1.15.2"
 	},

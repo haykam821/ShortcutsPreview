@@ -3,6 +3,7 @@ const djs = require("discord.js");
 const utils = require("shortcuts.js");
 const getShortcutDetails = require("../logging-gsd.js");
 
+const semver = require("semver");
 const escape = require("markdown-escape");
 
 const { version } = require("./../package.json");
@@ -18,8 +19,10 @@ module.exports = config => {
 			const id = utils.idFromURL(url);
 			
 			if (id) {
-				getShortcutDetails(config.log, id).then(shortcut => {
+				getShortcutDetails(config.log, id).then(async shortcut => {
 					const embed = new djs.RichEmbed();
+
+					const metadata = await shortcut.getMetadata();
 
 					if (config.previewShortcutIcon) {
 						embed.attachFile({
@@ -36,8 +39,14 @@ module.exports = config => {
 						description.push("**" + shortcut.longDescription + "**");
 					}
 
-					description.push(`\\🔎 [Preview](${escape("https://preview.scpl.dev/?shortcut=" + shortcut.id)})`);
+					const icons = [];
+					icons.push(`\\🔎 [Preview](${escape("https://preview.scpl.dev/?shortcut=" + shortcut.id)})`);
+					const coerced = semver.coerce(metadata.client.release)
+					if (semver.satisfies(coerced, config.betaRange)) {
+						icons.push("\\🐞 Shortcuts Beta v" + coerced);
+					}
 					
+					description.push(icons.join("\n"));
 					embed.setDescription(description.join("\n\n"));
 
 					// Get a normal hex color from the icon color for the embed color

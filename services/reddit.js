@@ -4,11 +4,12 @@ const snoostorm = require("snoostorm");
 const utils = require("shortcuts.js");
 const getShortcutDetails = require("./../logging-gsd.js");
 
+const semver = require("semver");
 const escape = require("markdown-escape");
 
 const { version, homepage } = require("./../package.json");
 
-function format(shortcut) {
+function format(shortcut, metadata) {
 	const msg = [];
 	
 	// Name of shortcut
@@ -21,6 +22,11 @@ function format(shortcut) {
 	// Links to shortcut download and preview
 	msg.push(`* ⬇️ [Download](${escape(shortcut.getLink())})`);
 	msg.push(`* 🔎 [Preview](${escape("https://preview.scpl.dev/?shortcut=" + shortcut.id)})`);
+
+	const coerced = semver.coerce(metadata.client.release)
+	if (semver.satisfies(coerced, config.betaRange)) {
+		msg.push("* 🐞 Shortcuts Beta v" + coerced);
+	}
 	
 	// Footer with meta info
 	msg.push("---");
@@ -43,8 +49,10 @@ module.exports = config => {
 		if (!post.is_self) {
 			const id = utils.idFromURL(post.url);
 			if (id) {
-				getShortcutDetails(config.log, id).then(shortcut => {
-					post.reply(format(shortcut)).then(reply => {
+				getShortcutDetails(config.log, id).then(async shortcut => {
+					const metadata = await shortcut.getMetadata();
+
+					post.reply(format(shortcut, metadata)).then(reply => {
 						config.log("Sent a preview for the '%s' shortcut.", shortcut.name);
 						reply.distinguish({
 							status: true,
