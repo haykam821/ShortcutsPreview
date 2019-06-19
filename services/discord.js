@@ -17,9 +17,12 @@ module.exports = config => {
 			if (id) {
 				utils.getShortcutDetails(id).then(shortcut => {
 					const embed = new djs.RichEmbed();
-					
-					embed.setTitle("Shortcut: " + shortcut.name);
-					embed.setURL(shortcut.getLink());
+
+					embed.attachFile({
+						attachment: shortcut.icon.downloadURL,
+						name: "icon.png",
+					});
+					embed.setAuthor("Shortcut: " + shortcut.name, "attachment://icon.png", shortcut.getLink());
 					
 					const description = [];
 					
@@ -33,12 +36,6 @@ module.exports = config => {
 					// Get a normal hex color from the icon color for the embed color
 					const iconColor = shortcut.icon.color.toString(16).slice(0, 6);
 					embed.setColor(iconColor);
-
-					embed.attachFile({
-						attachment: shortcut.icon.downloadURL,
-						name: "icon.png",
-					});
-					embed.setThumbnail("attachment://icon.png");
 
 					// Make the footer
 					embed.setTimestamp(shortcut.creationDate);
