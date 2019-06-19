@@ -1,8 +1,8 @@
 const debug = require("debug");
-const config = debug("shortcutspreview:config");
+const configLog = debug("shortcutspreview:config");
 
 if (require('dotenv').config()) {
-	config("Using environment variables for configuration is deprecated. Please use config.json instead.");
+	configLog("Using environment variables for configuration is deprecated. Please use config.json instead.");
 }
 
 const loadErrors = {
@@ -14,7 +14,7 @@ try {
 	var configJSON = require("./config.json");
 } catch (error) {
 	var configJSON = {};
-	config(loadErrors[error.code] || loadErrors.generic);
+	configLog(loadErrors[error.code] || loadErrors.generic);
 }
 
 const config = Object.assign(configJSON, {
