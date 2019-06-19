@@ -27,7 +27,7 @@ module.exports = config => {
 							name: "icon.png",
 						});
 					}
-					embed.setAuthor("Shortcut: " + shortcut.name, config.previewShortcutIcon && "attachment://icon.png", shortcut.getLink());
+					embed.setAuthor("Shortcut: " + shortcut.name, config.previewShortcutIcon ? "attachment://icon.png" : null, shortcut.getLink());
 					
 					const description = [];
 					
