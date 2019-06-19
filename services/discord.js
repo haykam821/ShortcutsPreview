@@ -19,11 +19,13 @@ module.exports = config => {
 				getShortcutDetails(config.log, id).then(shortcut => {
 					const embed = new djs.RichEmbed();
 
-					embed.attachFile({
-						attachment: shortcut.icon.downloadURL,
-						name: "icon.png",
-					});
-					embed.setAuthor("Shortcut: " + shortcut.name, "attachment://icon.png", shortcut.getLink());
+					if (config.previewShortcutIcon) {
+						embed.attachFile({
+							attachment: shortcut.icon.downloadURL,
+							name: "icon.png",
+						});
+					}
+					embed.setAuthor("Shortcut: " + shortcut.name, config.previewShortcutIcon && "attachment://icon.png", shortcut.getLink());
 					
 					const description = [];
 					
