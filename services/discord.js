@@ -34,6 +34,12 @@ module.exports = config => {
 					const iconColor = shortcut.icon.color.toString(16).slice(0, 6);
 					embed.setColor(iconColor);
 
+					embed.attachFile({
+						attachment: shortcut.icon.downloadURL,
+						name: "icon.png",
+					});
+					embed.setThumbnail("attachment://icon.png");
+
 					// Make the footer
 					embed.setTimestamp(shortcut.creationDate);
 					embed.setFooter(`ShortcutsPreview v${version}`);
