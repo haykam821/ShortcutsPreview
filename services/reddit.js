@@ -2,6 +2,7 @@ const snoowrap = require("snoowrap");
 const snoostorm = require("snoostorm");
 
 const utils = require("shortcuts.js");
+const getShortcutDetails = require("./../logging-gsd.js");
 
 const escape = require("markdown-escape");
 
@@ -30,7 +31,7 @@ function format(shortcut) {
 
 module.exports = config => {
 	const client = new snoostorm(new snoowrap(Object.assign(config.credentials, {
-		userAgent: `ShortcutsPreview v${version}`,
+		userAgent: "ShortcutsPreview v" + version,
 	})));
 
 	const sub = Array.isArray(config.subreddits) ? config.subreddits.join("+") : config.subreddits;
@@ -42,12 +43,19 @@ module.exports = config => {
 		if (!post.is_self) {
 			const id = utils.idFromURL(post.url);
 			if (id) {
-				utils.getShortcutDetails(id).then(shortcut => {
+				getShortcutDetails(config.log, id).then(shortcut => {
 					post.reply(format(shortcut)).then(reply => {
+						config.log("Sent a preview for the '%s' shortcut.", shortcut.name);
 						reply.distinguish({
 							status: true,
 							sticky: true,
+						}).then(() => {
+							config.log("Pinned a preview for the '%s' shortcut.", shortcut.name);
+						}).catch(() => {
+							config.log("Couldn't pin a preview for the '%s' shortcut.", shortcut.name);
 						});
+					}).catch(() => {
+						config.log("Couldn't send a preview for the '%s' shortcut.", shortcut.name);
 					});
 				});
 			}
