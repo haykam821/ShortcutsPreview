@@ -9,7 +9,7 @@ const escape = require("markdown-escape");
 
 const { version, homepage } = require("./../package.json");
 
-function format(shortcut, metadata) {
+function format(shortcut, metadata, betaRange) {
 	const msg = [];
 	
 	// Name of shortcut
@@ -24,7 +24,7 @@ function format(shortcut, metadata) {
 	msg.push(`* 🔎 [Preview](${escape("https://preview.scpl.dev/?shortcut=" + shortcut.id)})`);
 
 	const coerced = semver.coerce(metadata.client.release)
-	if (semver.satisfies(coerced, config.betaRange)) {
+	if (semver.satisfies(coerced, betaRange)) {
 		msg.push("* 🐞 Shortcuts Beta v" + coerced);
 	}
 	
@@ -52,7 +52,7 @@ module.exports = config => {
 				getShortcutDetails(config.log, id).then(async shortcut => {
 					const metadata = await shortcut.getMetadata();
 
-					post.reply(format(shortcut, metadata)).then(reply => {
+					post.reply(format(shortcut, metadata, config.betaRange)).then(reply => {
 						config.log("Sent a preview for the '%s' shortcut.", shortcut.name);
 						reply.distinguish({
 							status: true,
