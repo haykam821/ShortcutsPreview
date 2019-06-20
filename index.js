@@ -1,4 +1,4 @@
-const assign = require("assign-deep");
+const merge = require("merge-deep");
 
 const debug = require("debug");
 const configLog = debug("shortcutspreview:config");
@@ -15,7 +15,7 @@ try {
 	configLog(loadErrors[error.code] || loadErrors.generic);
 }
 
-const config = assign({
+const config = merge({
 	global: {
 		enabled: true,
 		betaRange: ">=3.0.0",
@@ -37,9 +37,11 @@ const config = assign({
 }, configJSON);
 
 function service(name) {
-	const serviceConfig = assign(config.global, config[name], {
-		// Expose a debugger specific to the service
-		log: debug(`shortcutspreview:services:${name}`),
+	// Expose a debugger specific to the service
+	const log = debug(`shortcutspreview:services:${name}`);
+
+	const serviceConfig = merge(config.global, config[name], {
+		log,
 	});
 	if (serviceConfig.enabled) {
 		return require(`./services/${name}.js`)(serviceConfig);
