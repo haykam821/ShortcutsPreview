@@ -26,6 +26,7 @@ const config = Object.assign({
 			password: "",
 		},
 		subreddits: "all",
+		testSubreddit: "ShortcutsPreview",
 	},
 	discord: {
 		token: "",

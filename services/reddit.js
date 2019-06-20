@@ -9,7 +9,7 @@ const escape = require("markdown-escape");
 
 const { version, homepage } = require("./../package.json");
 
-function format(shortcut, metadata, betaRange) {
+function format(shortcut, metadata, betaRange, testSubreddit) {
 	const msg = [];
 	
 	// Name of shortcut
@@ -29,8 +29,10 @@ function format(shortcut, metadata, betaRange) {
 	}
 	
 	// Footer with meta info
+	const testSubLink = testSubreddit ? ` • [Test me!](https://www.reddit.com/r/${testSubreddit})` : ""
+
 	msg.push("---");
-	msg.push(`ShortcutsPreview v${version} • [Test me!](https://www.reddit.com/r/ShortcutsPreview) • [Creator](https://www.reddit.com/user/haykam821) • [Source code](${homepage})`);
+	msg.push(`ShortcutsPreview v${version}${testSubLink} • [Creator](https://www.reddit.com/user/haykam821) • [Source code](${homepage})`);
 	
 	return msg.join("\n\n");
 }
@@ -52,7 +54,7 @@ module.exports = config => {
 				getShortcutDetails(config.log, id).then(async shortcut => {
 					const metadata = await shortcut.getMetadata();
 
-					post.reply(format(shortcut, metadata, config.betaRange)).then(reply => {
+					post.reply(format(shortcut, metadata, config.betaRange, config.testSubreddit)).then(reply => {
 						config.log("Sent a preview for the '%s' shortcut.", shortcut.name);
 						reply.distinguish({
 							status: true,
