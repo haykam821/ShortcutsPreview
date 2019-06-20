@@ -1,3 +1,5 @@
+const assign = require("assign-deep");
+
 const debug = require("debug");
 const configLog = debug("shortcutspreview:config");
 
@@ -13,7 +15,7 @@ try {
 	configLog(loadErrors[error.code] || loadErrors.generic);
 }
 
-const config = Object.assign({
+const config = assign({
 	global: {
 		enabled: true,
 		betaRange: ">=3.0.0",
@@ -35,7 +37,7 @@ const config = Object.assign({
 }, configJSON);
 
 function service(name) {
-	const serviceConfig = Object.assign(config.global, config[name], {
+	const serviceConfig = assign(config.global, config[name], {
 		// Expose a debugger specific to the service
 		log: debug(`shortcutspreview:services:${name}`),
 	});

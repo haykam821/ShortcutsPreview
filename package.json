@@ -17,6 +17,7 @@
 	},
 	"homepage": "https://github.com/haykam821/ShortcutsPreview#readme",
 	"dependencies": {
+		"assign-deep": "^1.0.1",
 		"discord.js": "^11.4.2",
 		"markdown-escape": "^1.0.2",
 		"semver": "^6.1.1",
