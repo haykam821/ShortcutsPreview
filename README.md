@@ -19,7 +19,10 @@ You need to make a `config.json` in the root. Each service (such as `reddit` or 
     },
     "discord": {
         "token": "insertyourtokenhere"
-    }
+	},
+	"telegram": {
+		"token": "insertyourothertokenhere"
+	}
 }
 ```
 
@@ -46,3 +49,7 @@ The Discord bot needs three permissions to work:
 You can invite the hosted version with the necessary permissions through [this link](https://discordapp.com/api/oauth2/authorize?client_id=492797846265921548&permissions=19456&scope=bot).
 
 The first iCloud URL found in a message is previewed with an embed message.
+
+## Telegram
+
+You can add the hosted bot through [this link](https://t.me/ShortcutsPreview).
