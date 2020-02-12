@@ -24,7 +24,8 @@
 		"semver": "^6.1.1",
 		"shortcuts.js": "^3.0.1",
 		"snoostorm": "0.0.5",
-		"snoowrap": "^1.15.2"
+		"snoowrap": "^1.15.2",
+		"telegraf": "^3.36.0"
 	},
 	"keywords": [
 		"shortcuts",

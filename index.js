@@ -34,6 +34,14 @@ const config = merge({
 		token: "",
 		previewShortcutIcon: true,
 	},
+	telegram: {
+		buttons: [
+			"add",
+			"download",
+			"preview",
+		],
+		token: "",
+	}
 }, configJSON);
 
 function service(name) {
@@ -50,3 +58,4 @@ function service(name) {
 
 service("reddit");
 service("discord");
+service("telegram");
