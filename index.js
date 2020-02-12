@@ -35,6 +35,11 @@ const config = merge({
 		previewShortcutIcon: true,
 	},
 	telegram: {
+		buttons: [
+			"add",
+			"download",
+			"preview",
+		],
 		token: "",
 	}
 }, configJSON);
