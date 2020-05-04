@@ -8,7 +8,7 @@ const getShortcutDetails = require("../logging-gsd.js");
 const semver = require("semver");
 const escape = require("markdown-escape");
 
-const { version } = require("./../package.json");
+const { version } = require("../../package.json");
 
 const getPreviewLink = require("../utils/preview-link.js");
 

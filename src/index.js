@@ -9,7 +9,7 @@ const loadErrors = {
 };
 
 try {
-	var configJSON = require("./config.json");
+	var configJSON = require("../config.json");
 } catch (error) {
 	var configJSON = {};
 	configLog(loadErrors[error.code] || loadErrors.generic);

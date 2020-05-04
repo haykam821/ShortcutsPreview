@@ -2,12 +2,12 @@ const snoowrap = require("snoowrap");
 const snoostorm = require("snoostorm");
 
 const utils = require("shortcuts.js");
-const getShortcutDetails = require("./../logging-gsd.js");
+const getShortcutDetails = require("../logging-gsd.js");
 
 const semver = require("semver");
 const escape = require("markdown-escape");
 
-const { version, homepage } = require("./../package.json");
+const { version, homepage } = require("../../package.json");
 
 const getPreviewLink = require("../utils/preview-link.js");
 
