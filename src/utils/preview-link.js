@@ -4,6 +4,6 @@
  * @returns {string} The preview link.
  */
 function getPreviewLink(shortcutID) {
-	return "https://preview.scpl.dev/?shortcut=" + encodeURIComponent(shortcutID);
+	return "https://showcuts.app/share/view/" + encodeURIComponent(shortcutID);
 }
 module.exports = getPreviewLink;
