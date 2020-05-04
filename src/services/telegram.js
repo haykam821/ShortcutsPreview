@@ -11,6 +11,12 @@ const escape = require("markdown-escape");
 const Service = require("../types/service.js");
 const getPreviewLink = require("../utils/preview-link.js");
 
+/**
+ * Whether to hide a button.
+ * @param {string} button The button that could be hidden.
+ * @param {Object} config The service config.
+ * @returns {boolean} Whether the button should be hidden.
+ */
 function hideButton(button, config) {
 	if (!Array.isArray(config.buttons)) return true;
 	return !config.buttons.includes(button);
@@ -31,7 +37,7 @@ class TelegramService extends Service {
 
 					const description = [];
 
-					const createdString = shortcut.creationDate ? " (created " + shortcut.creationDate.toLocaleString("en-US") + ")": "";
+					const createdString = shortcut.creationDate ? " (created " + shortcut.creationDate.toLocaleString("en-US") + ")" : "";
 					description.push("*Shortcut: " + shortcut.name + "*" + createdString);
 
 
@@ -42,7 +48,7 @@ class TelegramService extends Service {
 
 					// Create icons for description
 					const icons = [];
-					const coerced = semver.coerce(metadata.client.release)
+					const coerced = semver.coerce(metadata.client.release);
 					if (semver.satisfies(coerced, this.config.betaRange)) {
 						icons.push("🐞 Shortcuts Beta v" + coerced);
 					}
@@ -68,7 +74,7 @@ class TelegramService extends Service {
 				});
 			}
 		});
-		
+
 		client.launch().then(() => {
 			this.log("Connected to Telegram.");
 		}).catch(() => {

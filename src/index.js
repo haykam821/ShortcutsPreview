@@ -8,33 +8,33 @@ const loadErrors = {
 	generic: "The configuration could not be loaded.",
 };
 
+let configJSON = {};
 try {
-	var configJSON = require("../config.json");
+	configJSON = require("../config.json");
 } catch (error) {
-	var configJSON = {};
 	configLog(loadErrors[error.code] || loadErrors.generic);
 }
 
 const { version } = require("../package.json");
 
 const config = merge({
+	discord: {
+		previewShortcutIcon: true,
+		token: "",
+	},
 	global: {
-		enabled: true,
 		betaRange: ">=3.0.0",
+		enabled: true,
 	},
 	reddit: {
 		credentials: {
 			clientId: "",
 			clientSecret: "",
-			username: "",
 			password: "",
+			username: "",
 		},
 		subreddits: "all",
 		testSubreddit: "ShortcutsPreview",
-	},
-	discord: {
-		token: "",
-		previewShortcutIcon: true,
 	},
 	telegram: {
 		buttons: [
@@ -43,7 +43,7 @@ const config = merge({
 			"preview",
 		],
 		token: "",
-	}
+	},
 }, configJSON);
 
 const services = require("./utils/get-services.js")();

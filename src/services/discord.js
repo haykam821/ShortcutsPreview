@@ -1,13 +1,10 @@
-const djs = require("discord.js");
-
 const utils = require("shortcuts.js");
 const getShortcutDetails = require("../logging-gsd.js");
 
+const djs = require("discord.js");
 const semver = require("semver");
-const escape = require("markdown-escape");
 
 const Service = require("../types/service.js");
-
 const getPreviewLink = require("../utils/preview-link.js");
 
 class DiscordService extends Service {
@@ -17,10 +14,10 @@ class DiscordService extends Service {
 		client.on("message", msg => {
 			if (msg.author.id !== client.user.id) {
 				const words = msg.content.split(" ");
-				
+
 				const url = words.find(utils.idFromURL);
 				const id = utils.idFromURL(url);
-				
+
 				if (id) {
 					getShortcutDetails(this.log, id).then(async shortcut => {
 						const embed = new djs.RichEmbed();
@@ -34,9 +31,9 @@ class DiscordService extends Service {
 							});
 						}
 						embed.setAuthor("Shortcut: " + shortcut.name, this.config.previewShortcutIcon ? "attachment://icon.png" : null, shortcut.getLink());
-						
+
 						const description = [];
-						
+
 						// Add bolded long description, if there is one
 						if (shortcut.longDescription) {
 							description.push("**" + shortcut.longDescription + "**");
@@ -44,11 +41,11 @@ class DiscordService extends Service {
 
 						const icons = [];
 						icons.push(`\\🔎 [Preview](${getPreviewLink(shortcut.id)})`);
-						const coerced = semver.coerce(metadata.client.release)
+						const coerced = semver.coerce(metadata.client.release);
 						if (semver.satisfies(coerced, this.config.betaRange)) {
 							icons.push("\\🐞 Shortcuts Beta v" + coerced);
 						}
-						
+
 						description.push(icons.join("\n"));
 						embed.setDescription(description.join("\n\n"));
 
@@ -59,7 +56,7 @@ class DiscordService extends Service {
 						// Make the footer
 						embed.setTimestamp(shortcut.creationDate);
 						embed.setFooter(`ShortcutsPreview v${this.version}`);
-						
+
 						msg.channel.send("", embed).then(() => {
 							this.log("Sent a preview for the '%s' shortcut.", shortcut.name);
 						}).catch(() => {
@@ -74,7 +71,7 @@ class DiscordService extends Service {
 			this.log("Connected to Discord.");
 		}).catch(() => {
 			this.log("Couldn't connect to Discord.");
-		}); 
+		});
 	}
 }
 module.exports = DiscordService;
