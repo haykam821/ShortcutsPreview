@@ -4,7 +4,8 @@
 	"description": "A multiplatform bot for showing the details of Shortcuts when linked by their iCloud URL.",
 	"main": "./src/index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "eslint \"./**/*.js\" --ignore-path .gitignore"
 	},
 	"repository": {
 		"type": "git",
@@ -27,11 +28,23 @@
 		"snoowrap": "^1.15.2",
 		"telegraf": "^3.36.0"
 	},
+	"devDependencies": {
+		"eslint": "^6.8.0",
+		"eslint-config-haykam": "^1.8.0",
+		"eslint-plugin-extra-rules": "0.0.0-development",
+		"eslint-plugin-html": "^6.0.2",
+		"eslint-plugin-json": "^1.4.0",
+		"eslint-plugin-markdown": "^1.0.2",
+		"eslint-plugin-unicorn": "^10.0.0"
+	},
 	"keywords": [
 		"shortcuts",
 		"apple",
 		"bot",
 		"discord",
 		"reddit"
-	]
+	],
+	"eslintConfig": {
+		"extends": "eslint-config-haykam"
+	}
 }
