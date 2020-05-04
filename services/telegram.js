@@ -10,6 +10,8 @@ const escape = require("markdown-escape");
 
 const { version } = require("./../package.json");
 
+const getPreviewLink = require("../utils/preview-link.js");
+
 function hideButton(button, config) {
 	if (!Array.isArray(config.buttons)) return true;
 	return !config.buttons.includes(button);
@@ -49,12 +51,11 @@ module.exports = config => {
 
 				// Create buttons
 				const downloadURL = shortcut.downloadURL.replace("${f}", encodeURIComponent(shortcut.name + ".shortcut"));
-				const previewURL = "https://preview.scpl.dev/?shortcut=" + shortcut.id;
 				const markup = Extra.markup(
 					Markup.inlineKeyboard([
 						Markup.urlButton("Add", shortcut.getLink(), hideButton("add", config)),
 						Markup.urlButton("Download", downloadURL, hideButton("download", config)),
-						Markup.urlButton("Preview", previewURL, hideButton("preview", config)),
+						Markup.urlButton("Preview", getPreviewLink(shortcut.id), hideButton("preview", config)),
 					]),
 				);
 

@@ -8,6 +8,8 @@ const escape = require("markdown-escape");
 
 const { version } = require("./../package.json");
 
+const getPreviewLink = require("../utils/preview-link.js");
+
 module.exports = config => {
 	const client = new djs.Client();
 
@@ -40,7 +42,7 @@ module.exports = config => {
 					}
 
 					const icons = [];
-					icons.push(`\\🔎 [Preview](${escape("https://preview.scpl.dev/?shortcut=" + shortcut.id)})`);
+					icons.push(`\\🔎 [Preview](${getPreviewLink(shortcut.id)})`);
 					const coerced = semver.coerce(metadata.client.release)
 					if (semver.satisfies(coerced, config.betaRange)) {
 						icons.push("\\🐞 Shortcuts Beta v" + coerced);

@@ -9,6 +9,8 @@ const escape = require("markdown-escape");
 
 const { version, homepage } = require("./../package.json");
 
+const getPreviewLink = require("../utils/preview-link.js");
+
 function format(shortcut, metadata, betaRange, testSubreddit) {
 	const msg = [];
 	
@@ -21,7 +23,7 @@ function format(shortcut, metadata, betaRange, testSubreddit) {
 	
 	// Links to shortcut download and preview
 	msg.push(`* ⬇️ [Download](${escape(shortcut.getLink())})`);
-	msg.push(`* 🔎 [Preview](${escape("https://preview.scpl.dev/?shortcut=" + shortcut.id)})`);
+	msg.push(`* 🔎 [Preview](${getPreviewLink(shortcut.id)})`);
 
 	const coerced = semver.coerce(metadata.client.release)
 	if (semver.satisfies(coerced, betaRange)) {
