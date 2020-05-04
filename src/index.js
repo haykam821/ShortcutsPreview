@@ -15,6 +15,8 @@ try {
 	configLog(loadErrors[error.code] || loadErrors.generic);
 }
 
+const { version } = require("../package.json");
+
 const config = merge({
 	global: {
 		enabled: true,
@@ -44,7 +46,8 @@ const config = merge({
 	}
 }, configJSON);
 
-function service(name) {
+const services = require("./utils/get-services.js")();
+Object.entries(services).forEach(([ name, service ]) => {
 	// Expose a debugger specific to the service
 	const log = debug(`shortcutspreview:services:${name}`);
 
@@ -52,10 +55,7 @@ function service(name) {
 		log,
 	});
 	if (serviceConfig.enabled) {
-		return require(`./services/${name}.js`)(serviceConfig);
+		const serviceInstance = new service(serviceConfig, log, version);
+		serviceInstance.start();
 	}
-}
-
-service("reddit");
-service("discord");
-service("telegram");
+});

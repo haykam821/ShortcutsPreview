@@ -7,8 +7,9 @@ const getShortcutDetails = require("../logging-gsd.js");
 const semver = require("semver");
 const escape = require("markdown-escape");
 
-const { version, homepage } = require("../../package.json");
+const { homepage } = require("../../package.json");
 
+const Service = require("../types/service.js");
 const getPreviewLink = require("../utils/preview-link.js");
 
 function format(shortcut, metadata, betaRange, testSubreddit) {
@@ -34,43 +35,46 @@ function format(shortcut, metadata, betaRange, testSubreddit) {
 	const testSubLink = testSubreddit ? ` • [Test me!](https://www.reddit.com/r/${testSubreddit})` : ""
 
 	msg.push("---");
-	msg.push(`ShortcutsPreview v${version}${testSubLink} • [Creator](https://www.reddit.com/user/haykam821) • [Source code](${homepage})`);
+	msg.push(`ShortcutsPreview v${this.version}${testSubLink} • [Creator](https://www.reddit.com/user/haykam821) • [Source code](${homepage})`);
 	
 	return msg.join("\n\n");
 }
 
-module.exports = config => {
-	const client = new snoostorm(new snoowrap(Object.assign(config.credentials, {
-		userAgent: "ShortcutsPreview v" + version,
-	})));
+class RedditService extends Service {
+	start() {
+		const client = new snoostorm(new snoowrap(Object.assign(this.config.credentials, {
+			userAgent: "ShortcutsPreview v" + this.version,
+		})));
 
-	const sub = Array.isArray(config.subreddits) ? config.subreddits.join("+") : config.subreddits;
-	const stream = client.SubmissionStream({
-		"subreddit": sub,
-	});
+		const sub = Array.isArray(this.config.subreddits) ? this.config.subreddits.join("+") : this.config.subreddits;
+		const stream = client.SubmissionStream({
+			"subreddit": sub,
+		});
 
-	stream.on("submission", post => {
-		if (!post.is_self) {
-			const id = utils.idFromURL(post.url);
-			if (id) {
-				getShortcutDetails(config.log, id).then(async shortcut => {
-					const metadata = await shortcut.getMetadata();
+		stream.on("submission", post => {
+			if (!post.is_self) {
+				const id = utils.idFromURL(post.url);
+				if (id) {
+					getShortcutDetails(this.log, id).then(async shortcut => {
+						const metadata = await shortcut.getMetadata();
 
-					post.reply(format(shortcut, metadata, config.betaRange, config.testSubreddit)).then(reply => {
-						config.log("Sent a preview for the '%s' shortcut.", shortcut.name);
-						reply.distinguish({
-							status: true,
-							sticky: true,
-						}).then(() => {
-							config.log("Pinned a preview for the '%s' shortcut.", shortcut.name);
+						post.reply(format(shortcut, metadata, this.config.betaRange, this.config.testSubreddit)).then(reply => {
+							this.log("Sent a preview for the '%s' shortcut.", shortcut.name);
+							reply.distinguish({
+								status: true,
+								sticky: true,
+							}).then(() => {
+								this.log("Pinned a preview for the '%s' shortcut.", shortcut.name);
+							}).catch(() => {
+								this.log("Couldn't pin a preview for the '%s' shortcut.", shortcut.name);
+							});
 						}).catch(() => {
-							config.log("Couldn't pin a preview for the '%s' shortcut.", shortcut.name);
+							this.log("Couldn't send a preview for the '%s' shortcut.", shortcut.name);
 						});
-					}).catch(() => {
-						config.log("Couldn't send a preview for the '%s' shortcut.", shortcut.name);
 					});
-				});
+				}
 			}
-		}
-	});
-};
+		});
+	}
+}
+module.exports = RedditService;
