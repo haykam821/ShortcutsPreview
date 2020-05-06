@@ -18,9 +18,10 @@ const getPreviewLink = require("../utils/preview-link.js");
  * @param {ShortcutMetadata} metadata The shortcut metadata.
  * @param {string} betaRange The beta range.
  * @param {string} testSubreddit The test subreddit to link to.
+ * @param {string} version The version of ShortcutsPreview.
  * @returns {string} The formatted response.
  */
-function format(shortcut, metadata, betaRange, testSubreddit) {
+function format(shortcut, metadata, betaRange, testSubreddit, version) {
 	const msg = [];
 
 	// Name of shortcut
@@ -43,7 +44,7 @@ function format(shortcut, metadata, betaRange, testSubreddit) {
 	const testSubLink = testSubreddit ? ` • [Test me!](https://www.reddit.com/r/${testSubreddit})` : "";
 
 	msg.push("---");
-	msg.push(`ShortcutsPreview v${this.version}${testSubLink} • [Creator](https://www.reddit.com/user/haykam821) • [Source code](${homepage})`);
+	msg.push(`ShortcutsPreview v${version}${testSubLink} • [Creator](https://www.reddit.com/user/haykam821) • [Source code](${homepage})`);
 
 	return msg.join("\n\n");
 }
@@ -66,7 +67,7 @@ class RedditService extends Service {
 					getShortcutDetails(this.log, id).then(async shortcut => {
 						const metadata = await shortcut.getMetadata();
 
-						post.reply(format(shortcut, metadata, this.config.betaRange, this.config.testSubreddit)).then(reply => {
+						post.reply(format(shortcut, metadata, this.config.betaRange, this.config.testSubreddit, this.version)).then(reply => {
 							this.log("Sent a preview for the '%s' shortcut.", shortcut.name);
 							reply.distinguish({
 								status: true,
