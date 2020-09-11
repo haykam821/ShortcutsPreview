@@ -42,6 +42,7 @@ const config = merge({
 			"download",
 			"preview",
 		],
+		command: true,
 		token: "",
 	},
 }, configJSON);
