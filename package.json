@@ -30,13 +30,15 @@
 		"telegraf": "^3.38.0"
 	},
 	"devDependencies": {
-		"eslint": "^6.8.0",
-		"eslint-config-haykam": "^1.8.0",
-		"eslint-plugin-extra-rules": "0.0.0-development",
-		"eslint-plugin-html": "^6.0.2",
-		"eslint-plugin-json": "^1.4.0",
-		"eslint-plugin-markdown": "^1.0.2",
-		"eslint-plugin-unicorn": "^10.0.0"
+		"eslint": "^7.24.0",
+		"eslint-config-haykam": "^1.10.0",
+		"eslint-plugin-extra-rules": "^0.0.0-development",
+		"eslint-plugin-html": "^6.1.2",
+		"eslint-plugin-jsdoc": "^32.3.0",
+		"eslint-plugin-json": "^2.1.2",
+		"eslint-plugin-markdown": "^2.0.1",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-unicorn": "^28.0.2"
 	},
 	"keywords": [
 		"shortcuts",
