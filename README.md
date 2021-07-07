@@ -4,7 +4,7 @@ A multiplatform bot for showing the details of Shortcuts when linked by their iC
 
 ## Setup
 
-You need to make a `config.json` in the root. Each service (such as `reddit` or `discord`) will have its own object for settings applying to that service, along with a `global` object that applies to all services. For example:
+You need to make a `config.json` in the root. Each service (such as `reddit` or `discord`) will have its own object for settings applying to that service, along with `global`: For example:
 
 ```json
 {
@@ -26,7 +26,19 @@ You need to make a `config.json` in the root. Each service (such as `reddit` or 
 }
 ```
 
-Since `global.enabled` is `true`, `reddit.enabled` and `discord.enabled` are also `true`. If you set `enabled` to `false` for a service, you can not use it.
+### Global
+
+Global configuration applies to all services unless that service overrides it.
+
+Since `global.enabled` is `true`, `reddit.enabled` and `discord.enabled` are also `true`. If you set `discord.enabled` to `false` as well, every service except Discord will start.
+
+### Reddit
+
+To authenticate the Reddit service, use `reddit.credentials`. This is passed to Snoowrap, so use [an object as described by its documentation](https://not-an-aardvark.github.io/snoowrap/snoowrap.html#snoowrap__anchor). The properties of the object are `clientId`, `clientSecret`, `username`, `password`, `refreshToken`, and `accessToken`. Overriding the `userAgent` property is not allowed, since Reddit uses that to blacklist broken versions of bots.
+
+### Discord
+
+Fill in the `discord.token` property with your bot's token, as obtained from the [developer dashboard](http://discordapp.com/developers/applications/me).   
 
 ## Usage
 
